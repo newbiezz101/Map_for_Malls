@@ -166,11 +166,9 @@ while not done:
     # --- Main event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            path = jsonpickle.encode(visited_nodes)
-            data = {'test': 2, 'Start': START,'End': END,'Path':path}
+            data = {'Start': START,'End': END,'Path':str(visited_nodes)}
             with open('path.txt', 'w') as outfile:
                 json.dump(data, outfile, indent=4)
-            print(visited_nodes)
             done = True
         
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -460,13 +458,8 @@ while not done:
         time_taken = end-start
 
         # Print timings
-        #print(f"Program finished in {time_taken:.4f} seconds after checking {num_visited} nodes. That is {time_taken/num_visited:.8f} seconds per node.")
+        print(f"Program finished in {time_taken:.4f} seconds after checking {num_visited} nodes. That is {time_taken/num_visited:.8f} seconds per node.")
 
-        #global visited_nodes
-        #print(visited_nodes)
-        #global json_data
-        #json_data = '[{"Start":START,"End":END,"Path":visited_nodes}]'
-      
         # The commented out line returns the distance to the end node
         # return False if v_distances[goal_node] == float('inf') else v_distances[goal_node]
         
