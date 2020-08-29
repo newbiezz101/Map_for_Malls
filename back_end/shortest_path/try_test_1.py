@@ -1,6 +1,5 @@
 import pygame
 import json
-import jsonpickle
 import time
 from priority_queue import PrioritySet, PriorityQueue, AStarQueue
 from math import inf
