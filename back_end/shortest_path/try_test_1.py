@@ -1,4 +1,6 @@
 import pygame
+import json
+import jsonpickle
 import time
 from priority_queue import PrioritySet, PriorityQueue, AStarQueue
 from math import inf
@@ -20,6 +22,11 @@ BROWN = (186, 127, 50)
 DARK_GREEN = (0, 128, 0)
 DARKER_GREEN = (0, 50, 0)
 DARK_BLUE = (0, 0, 128)
+
+START = "Uniqlo"
+END = "Maybank"
+
+visited_nodes = set()
 
 # For creating Buttons
 class Button():
@@ -159,6 +166,11 @@ while not done:
     # --- Main event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            path = jsonpickle.encode(visited_nodes)
+            data = {'test': 2, 'Start': START,'End': END,'Path':path}
+            with open('path.txt', 'w') as outfile:
+                json.dump(data, outfile, indent=4)
+            print(visited_nodes)
             done = True
         
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -374,6 +386,7 @@ while not done:
         n = len(mazearray) - 1
         
         # Create the various data structures with speed in mind
+        global visited_nodes
         visited_nodes = set()
         unvisited_nodes = set([(x,y) for x in range(n+1) for y in range(n+1)])
         queue = AStarQueue()
@@ -448,7 +461,11 @@ while not done:
 
         # Print timings
         #print(f"Program finished in {time_taken:.4f} seconds after checking {num_visited} nodes. That is {time_taken/num_visited:.8f} seconds per node.")
-        print(visited_nodes)
+
+        #global visited_nodes
+        #print(visited_nodes)
+        #global json_data
+        #json_data = '[{"Start":START,"End":END,"Path":visited_nodes}]'
       
         # The commented out line returns the distance to the end node
         # return False if v_distances[goal_node] == float('inf') else v_distances[goal_node]
