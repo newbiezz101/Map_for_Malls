@@ -23,10 +23,13 @@ DARKER_GREEN = (0, 50, 0)
 DARK_BLUE = (0, 0, 128)
 
 START = "Uniqlo"
-END = "iSetan"
-FILE = "path2.txt"
+END = "Maybank"
+FILE = "path1.txt"
 
 visited_nodes = set()
+mud = set()
+wall = {(3, 33), (10, 28), (8, 28), (13, 28), (5, 31), (11, 28), (9, 28), (4, 32), (16, 28), (1, 35), (14, 28), (12, 28), (7, 29), (2, 34), (15, 28), (6, 30)}
+Node().update(wall, nodetype='wall')
 
 # For creating Buttons
 class Button():
