@@ -1,0 +1,7 @@
+{
+  "name": "mynav",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
