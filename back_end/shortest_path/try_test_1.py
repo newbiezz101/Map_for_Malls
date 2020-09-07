@@ -26,6 +26,8 @@ START = "Uniqlo"
 END = "Maybank"
 
 visited_nodes = set()
+maze_row = []
+maze_column = []
 
 
 # For creating Buttons
@@ -65,7 +67,7 @@ class Node():
     nodetypes = ['blank', 'start', 'end', 'wall', 'mud', 'dormant']
 
     colors = {
-        'regular': {'blank': WHITE, 'start': RED, 'end': LIGHT_BLUE, 'wall': BLACK, 'mud': BROWN, 'dormant': GREY},
+        'regular': {'blank': BLACK, 'start': RED, 'end': LIGHT_BLUE, 'wall': BLACK, 'mud': BROWN, 'dormant': GREY},
         'visited': {'blank': GREEN, 'start': RED, 'end': LIGHT_BLUE, 'wall': BLACK, 'mud': DARK_GREEN, 'dormant': GREY},
         'path': {'blank': BLUE, 'start': RED, 'end': LIGHT_BLUE, 'wall': BLACK, 'mud': DARK_BLUE, 'dormant': GREY}
         }
@@ -111,21 +113,30 @@ WIDTH = 7
 HEIGHT = WIDTH  # so they are squares
 BUTTON_HEIGHT = 50
 
+# This sets the SCREEN_WIDTH and SCREEN_HEIGHT
+SCREEN_WIDTH = 1254
+SCREEN_HEIGHT = 550
+WINDOW_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT+50)
+
 # This sets the margin between each cell
 MARGIN = 0
 
 # Create a 2 dimensional array (a list of lists)
 grid = []
-ROWS = 50
+ROWS = SCREEN_HEIGHT//HEIGHT
+COLUMN = SCREEN_WIDTH//WIDTH
 # Iterate through every row and column, adding blank nodes
-for row in range(ROWS):
+for row in range(COLUMN):
     grid.append([])
-    for column in range(ROWS):
+    for column in range(COLUMN):
         grid[row].append(Node('blank'))
 
     # Set start and end points for the pathfinder
-START_POINT = (random.randrange(2, ROWS - 1, 2) - 1, random.randrange(2, ROWS - 1, 2) - 1)
-END_POINT = (random.randrange(2, ROWS - 1, 2), random.randrange(2, ROWS - 1, 2))
+#START_POINT = (random.randrange(2, ROWS - 1, 2) - 1, random.randrange(2, ROWS - 1, 2) - 1)
+#END_POINT = (random.randrange(2, ROWS - 1, 2), random.randrange(2, ROWS - 1, 2))
+
+START_POINT = (0,0)
+END_POINT = (20,20)
 
 grid[START_POINT[0]][START_POINT[1]].update(nodetype='start')
 grid[END_POINT[0]][END_POINT[1]].update(nodetype='end')
@@ -144,23 +155,27 @@ algorithm_run = False
 
 pygame.init()
 
-image = pygame.image.load("suriaconcoursemap.jpg")
+image = pygame.image.load("suriaconcoursemap.png")
 
 # Set default font for nodes
 FONT = pygame.font.SysFont('arial', 6)
 
 # Set the width and height of the screen [width, height]
-SCREEN_WIDTH = ROWS * (WIDTH + MARGIN) + MARGIN * 2
-SCREEN_HEIGHT = SCREEN_WIDTH + BUTTON_HEIGHT
-WINDOW_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
-screen = pygame.display.set_mode((798, 550))
+#SCREEN_WIDTH = ROWS * (WIDTH + MARGIN) + MARGIN * 2
+#SCREEN_HEIGHT = SCREEN_WIDTH + BUTTON_HEIGHT
+
+
+screen = pygame.display.set_mode(WINDOW_SIZE)
 screen.blit(image, [0, 0])
 
 # Make some Buttons
-astarButton = Button(GREY, 0, SCREEN_WIDTH, SCREEN_WIDTH / 2, BUTTON_HEIGHT, "A*")
-resetButton = Button(GREY, SCREEN_WIDTH / 2, SCREEN_WIDTH, SCREEN_WIDTH / 2, BUTTON_HEIGHT, "Reset")
+#astarButton = Button(GREY, 0, SCREEN_WIDTH, SCREEN_WIDTH / 2, BUTTON_HEIGHT, "A*")
+astarButton = Button(GREY, 0, SCREEN_HEIGHT, SCREEN_WIDTH/4, BUTTON_HEIGHT, "A*")
+resetButton = Button(GREY, SCREEN_WIDTH/4, SCREEN_HEIGHT, SCREEN_WIDTH/4, BUTTON_HEIGHT, "Reset")
+save_mazeButton = Button(GREY, SCREEN_WIDTH/2, SCREEN_HEIGHT, SCREEN_WIDTH/4, BUTTON_HEIGHT, "Save Maze")
+load_mazeButton = Button(GREY, 3*(SCREEN_WIDTH/4), SCREEN_HEIGHT, SCREEN_WIDTH/4, BUTTON_HEIGHT, "Load Maze")
 
-pygame.display.set_caption("Pathfinder")
+pygame.display.set_caption("Suria KLCC Concourse Level")
 
 # Loop until the user clicks the close Button.
 done = False
@@ -185,7 +200,7 @@ while not done:
             pressed = pygame.key.get_pressed()
 
             # If click is inside grid
-            if pos[1] <= SCREEN_WIDTH - 1:
+            if pos[1] <= SCREEN_HEIGHT - 1:
 
                 # Change the x/y screen coordinates to grid coordinates
                 column = pos[0] // (WIDTH + MARGIN)
@@ -223,7 +238,7 @@ while not done:
                 path_found = False
                 algorithm_run = False
                 for row in range(ROWS):
-                    for column in range(ROWS):
+                    for column in range(COLUMN):
                         if (row, column) != START_POINT and (row, column) != END_POINT:
                             grid[row][column].update(nodetype='blank', is_visited=False, is_path=False)
 
@@ -249,7 +264,7 @@ while not done:
             row = pos[1] // (HEIGHT + MARGIN)
 
             # Turns mouse drag off if mouse goes outside of grid.
-            if pos[1] >= SCREEN_WIDTH - 2 or pos[1] <= 2 or pos[0] >= SCREEN_WIDTH - 2 or pos[0] <= 2:
+            if pos[1] >= SCREEN_HEIGHT - 2 or pos[1] <= 2 or pos[0] >= SCREEN_WIDTH - 2 or pos[0] <= 2:
                 mouse_drag = False
                 continue
 
@@ -268,6 +283,11 @@ while not done:
                         update_cell_to = 'blank'
                     else:
                         update_cell_to = 'wall'
+                        maze_row.append(row)
+                        maze_column.append(column)
+                        print(maze_row)
+                        print(maze_column)
+                        #print(row, column)
                     cell_updated.update(nodetype=update_cell_to)
 
                 mouse_drag = True
@@ -307,7 +327,7 @@ while not done:
     def clear_visited():
         excluded_nodetypes = ['start', 'end', 'wall', 'mud']
         for row in range(ROWS):
-            for column in range(ROWS):
+            for column in range(COLUMN):
                 if grid[row][column].nodetype not in excluded_nodetypes:
                     grid[row][column].update(nodetype="blank", is_visited=False, is_path=False)
                 else:
@@ -333,7 +353,7 @@ while not done:
 
 
     # + represents non-diagonal neighbours, x diagonal neighbours
-    def get_neighbours(node, max_width=ROWS - 1, diagonals=DIAGONALS):
+    def get_neighbours(node, max_width=COLUMN - 1, diagonals=DIAGONALS):
         if not diagonals:
             neighbours = (
                 ((min(max_width, node[0] + 1), node[1]), "+"),
@@ -363,7 +383,7 @@ while not done:
             screen,
             grid[row][column].color,
             [
-                (MARGIN + HEIGHT) * column + MARGIN,
+                (MARGIN + WIDTH) * column + MARGIN,
                 (MARGIN + HEIGHT) * row + MARGIN,
                 WIDTH,
                 HEIGHT
@@ -569,11 +589,13 @@ while not done:
             # Draw Button below grid
             astarButton.draw(screen, (0, 0, 0))
             resetButton.draw(screen, (0, 0, 0))
+            save_mazeButton.draw(screen, (0, 0, 0))
+            load_mazeButton.draw(screen, (0, 0, 0))
 
         if draw_grid:
             # Draw the grid
             for row in range(ROWS):
-                for column in range(ROWS):
+                for column in range(COLUMN):
                     color = grid[row][column].color
                     draw_square(row, column)
 
