@@ -1,0 +1,12 @@
+//makes header bigger site wide on ionic serve
+ion-navbar.toolbar {
+    min-height: 94px!important;
+  }
+//on Android
+ion-navbar.toolbar-md {
+    min-height: 94px!important;
+  }
+//on iOS
+ion-navbar.toolbar.toolbar-ios {
+    min-height: 94px!important;
+  }

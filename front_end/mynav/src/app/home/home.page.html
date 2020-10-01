@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="bg" (click)="clickChange($event)">
+      <div class= "row h-100">
+      <div class="col-sm-12 my-auto text-center">
+      <p class="mall_choose">Choose your Mall</p>    
+    <div class="col-md-4 offset-md-4">
+        <ion-searchbar  (ionChange)="onSearchTerm($event)" placeholder="Mall"></ion-searchbar>
+        <ion-list button [routerLink]="['/shop-search']" id="content" class="hide" >
+            <ion-item button  *ngFor="let item of items" (click)="clickChange($event)" (click)="navigate()">
+              {{item.title}}
+            </ion-item>
+          </ion-list>
+  </div>
+    </div>
+    </div>
+  </div>
+</ion-content>
