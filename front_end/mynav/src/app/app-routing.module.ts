@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'shop-search',
-    loadChildren: () => import('../../shop-search/shop-search.module').then( m => m.ShopSearchPageModule)
+    loadChildren: () => import('./shop-search/shop-search.module').then( m => m.ShopSearchPageModule)
   },
 ];
 

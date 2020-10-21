@@ -1,8 +1,4 @@
 import { Component } from '@angular/core';
-import { element } from 'protractor';
-import { createPublicKey } from 'crypto';
-import { title } from 'process';
-import { ShopSearchPage } from 'C:/Users/Acer/Desktop/nav/mynav/shop-search/shop-search.page';
 import { Router } from '@angular/router';
 
 
@@ -60,9 +56,9 @@ export class HomePage {
     alert(this.items);  
   }
 
-  navigate(){
-    this.router.navigate(['/shop_search'])
-  }
+  // navigate(){
+  //   this.router.navigate(['/shop_search'])
+  // }
 
   
 }

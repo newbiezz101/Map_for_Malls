@@ -8,7 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ShopSearchPage } from '../../shop-search/shop-search.page'
+import { ShopSearchPage } from './shop-search/shop-search.page'
 
 @NgModule({
   declarations: [AppComponent, ShopSearchPage],
