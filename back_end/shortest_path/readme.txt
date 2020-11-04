@@ -1,0 +1,1 @@
+A* algorith with maze drawing

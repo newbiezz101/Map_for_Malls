@@ -1,0 +1,34 @@
+{
+	"mall": [
+        {
+            "name": "klcc",
+            "shop_list": [
+                {
+                    "source": "uniqlo",
+                    "destination": "kinokuniya",
+                    "path": "{(1,2),(3,4)}"
+                },
+                {
+                    "source": "family mart",
+                    "destination": "iSetan",
+                    "path": "{(1,2),(3,4)}"
+                }
+            ]
+        },
+        {
+            "name": "aeon",
+            "shop_list": [
+                {
+                    "source": "uniqlo",
+                    "destination": "kinokuniya",
+                    "path": "{(1,2),(3,4)}"
+                },
+                {
+                    "source": "family mart",
+                    "destination": "iSetan",
+                    "path": "{(1,2),(3,4)}"
+                }
+            ]
+        }
+    ]
+}
