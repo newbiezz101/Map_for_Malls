@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
-mongoose.connect("mongodb://localhost:27017/chronoUser",{ useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/mallDatabase",{ useUnifiedTopology: true, useNewUrlParser: true });
 
 const connection = mongoose.connection;
 

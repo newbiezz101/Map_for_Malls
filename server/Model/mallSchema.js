@@ -4,4 +4,4 @@ const mallSchema = mongoose.Schema({
   mallName: String,
 })
 
-module.exports = mongoose.model("malls", mallSchema);
+module.exports = mongoose.model("mall", mallSchema, "mall");
