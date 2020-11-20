@@ -157,7 +157,7 @@ algorithm_run = False
 
 pygame.init()
 
-image = pygame.image.load("C:/Users/root/Documents/GitHub/branch/back_end/shortest_path/suriaconcoursemap.png")
+image = pygame.image.load("suriaconcoursemap.png")
 
 # Set default font for nodes
 FONT = pygame.font.SysFont('arial', 6)
