@@ -315,7 +315,7 @@ while not done:
             # print(concourse_level_routes)
             concourse_level_routes.append(origin_to_destination)
             data = {"mall": [{'name': 'KLCC', 'nav_list': concourse_level_routes}]}
-            with open(f'all_routes.txt', 'w') as outfile:
+            with open(f'saved_paths.txt', 'w') as outfile:
                 json.dump(data, outfile, indent=4)
 
             done = True
@@ -418,32 +418,32 @@ while not done:
 
             # ------------------------- Clicking 'Clear' button -----------------------------------------------------
             if Clear.isOver(pos):
-                # for row in range(ROWS):
-                #     for column in range(COLUMNS):
-                #         if (row, column) != selected_start and (row, column) != selected_end:
-                #             grid[row][column].update(nodetype='blank', is_visited=False, is_path=False)
-                #
-                # image = pygame.image.load("suriaconcoursemap.png")
-                # window.blit(image, [0, 0])
-                #
-                # draw_wall(wall)
-                # draw_start(start_point)
-                # draw_end(end_point)
+                for row in range(ROWS):
+                    for column in range(COLUMNS):
+                        if (row, column) != selected_start and (row, column) != selected_end:
+                            grid[row][column].update(nodetype='blank', is_visited=False, is_path=False)
 
-                for i in range(2):
-                    # i = count_start
-                    selected_start = start_point[i]
-                    for j in range(len(end_point)):
-                        print(j)
-                        if j == i:
-                            pass
-                        else:
-                            count_end = j
-                            selected_end = end_point[count_end]
-                            print(selected_end)
-                            # print(dijkstra(grid, start_point[i], end_point[j]))
-                            origin_to_destination[f'{shops_coor[start_point[i]]} to {shops_coor[end_point[j]]}'] = dijkstra(grid, selected_start, selected_end)
-                            print(origin_to_destination)
+                image = pygame.image.load("suriaconcoursemap.png")
+                window.blit(image, [0, 0])
+
+                draw_wall(wall)
+                draw_start(start_point)
+                draw_end(end_point)
+
+                # for i in range(len(start_point)):
+                #     # i = count_start
+                #     selected_start = start_point[i]
+                #     for j in range(len(end_point)):
+                #         print(j)
+                #         if j == i:
+                #             pass
+                #         else:
+                #             count_end = j
+                #             selected_end = end_point[count_end]
+                #             print(selected_end)
+                #             # print(dijkstra(grid, start_point[i], end_point[j]))
+                #             origin_to_destination[f'{shops_coor[start_point[i]]} to {shops_coor[end_point[j]]}'] = dijkstra(grid, selected_start, selected_end)
+                #             print(origin_to_destination)
 
             # ------------------------- Clicking the 'Find' button --------------------------------------------------
             if Find.isOver(pos):
