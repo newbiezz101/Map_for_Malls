@@ -430,19 +430,20 @@ while not done:
                 # draw_start(start_point)
                 # draw_end(end_point)
 
-                i = count_start
-                selected_start = start_point[i]
-                for j in range(len(end_point)):
-                    print(j)
-                    if j == i:
-                        pass
-                    else:
-                        count_end = j
-                        selected_end = end_point[count_end]
-                        print(selected_end)
-                        # print(dijkstra(grid, start_point[i], end_point[j]))
-                        origin_to_destination[f'{shops_coor[start_point[i]]} to {shops_coor[end_point[j]]}'] = dijkstra(grid, selected_start, selected_end)
-                        print(origin_to_destination)
+                for i in range(2):
+                    # i = count_start
+                    selected_start = start_point[i]
+                    for j in range(len(end_point)):
+                        print(j)
+                        if j == i:
+                            pass
+                        else:
+                            count_end = j
+                            selected_end = end_point[count_end]
+                            print(selected_end)
+                            # print(dijkstra(grid, start_point[i], end_point[j]))
+                            origin_to_destination[f'{shops_coor[start_point[i]]} to {shops_coor[end_point[j]]}'] = dijkstra(grid, selected_start, selected_end)
+                            print(origin_to_destination)
 
             # ------------------------- Clicking the 'Find' button --------------------------------------------------
             if Find.isOver(pos):
