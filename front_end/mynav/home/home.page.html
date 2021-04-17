@@ -2,19 +2,28 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="bg" (click)="clickChange($event)">
+  <div class="bg">
       <div class= "row h-100">
-      <div class="col-sm-12 my-auto text-center">
-      <p class="mall_choose">Choose your Mall</p>    
-    <div class="col-md-4 offset-md-4">
-        <ion-searchbar  (ionChange)="onSearchTerm($event)" placeholder="Mall"></ion-searchbar>
+        <div class="col-sm-12 my-auto text-center">
+          <p class="mall_choose" style="color: black;">Choose your Mall</p>    
+          <div class="col-md-4 offset-md-4">
+            <form [formGroup]="mallForm" (ngSubmit)="getMallService()">
+              <ion-list class="form_list">
+                <ion-item class="item_list">
+                  <ion-label class="label" position="floating" color="warning" stacked></ion-label>
+                  <ion-input class="input" autocomplete="true" spellcheck="true" type="string" placeholder="Mall" formControlName="mallName"></ion-input>
+                </ion-item>
+              </ion-list>
+              <ion-button type="submit" expand="block" color="warning">Search</ion-button>
+            </form>
+        <!-- <ion-searchbar  (ionChange)="onSearchTerm($event)" placeholder="Mall"></ion-searchbar>
         <ion-list button [routerLink]="['/shop-search']" routerDirection="forward" id="content" class="hide" >
             <ion-item button  *ngFor="let item of items" (click)="clickChange($event)">
               {{item.title}}
             </ion-item>
-          </ion-list>
-  </div>
-    </div>
-    </div>
+          </ion-list> -->
+          </div>
+        </div>
+      </div>
   </div>
 </ion-content>
